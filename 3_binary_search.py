@@ -6,6 +6,10 @@ from typing import List
 # 3. <= x 等价于 idx(> x) - 1
 # 4. < x 等价于 idx(>= x) - 1
 
+# 红蓝染色
+# 红色：在目标左侧
+# 蓝色：是目标，或者在目标右侧
+
 # 34. 在排序数组中查找元素的第一个和最后一个位置
 # https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array
 def searchRange(self, nums: List[int], target: int) -> List[int]:

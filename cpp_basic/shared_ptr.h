@@ -140,7 +140,7 @@ SharedPtr<T> make_shared(Args&&... args) {
         throw std::bad_alloc();
     }
 
-    auto t_ptr = reinterpret_cast<T*>(ptr + sizeof(impl::SharedPtrImpl<T>));
+    auto t_ptr = reinterpret_cast<T*>(ptr + sizeof(impl::SharedPtrImpl<T>)); // t_ptr 有偏移，无法使用 delete 或 operator delete 删除
 
     try {
         auto impl = new (ptr) impl::SharedPtrImpl<T>(t_ptr, impl::DestructorDeletor(), std::forward<Args>(args)...);

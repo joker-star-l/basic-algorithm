@@ -30,12 +30,10 @@ template <typename T>
 class SharedPtrImpl {
 public:
     template <typename D = DefaultDeleter>
-    SharedPtrImpl(T* ptr = nullptr, D deleter = D())
-        : ptr_(ptr), deleter_(deleter), counter_(1) {}
+    SharedPtrImpl(T* ptr = nullptr, D deleter = D()) : ptr_(ptr), deleter_(deleter), counter_(1) {}
     
     template <typename D = DestructorDeletor, typename... Args>
-    SharedPtrImpl(T* ptr, D deleter, Args&&... args)
-        : ptr_(ptr), deleter_(deleter), counter_(1) {
+    SharedPtrImpl(T* ptr, D deleter, Args&&... args) : ptr_(ptr), deleter_(deleter), counter_(1) {
         new (ptr) T(std::forward<Args>(args)...); // 在已分配的内存上调用构造函数
     }
 
@@ -49,6 +47,10 @@ public:
 
     void hold() {
         ++counter_;
+    }
+
+    uint use_count() const {
+        return counter_.load();
     }
 
     bool release() {
@@ -67,16 +69,13 @@ private:
 template <typename T>
 class SharedPtr {
 public:
-    explicit SharedPtr(impl::SharedPtrImpl<T>* impl)
-        : impl_(impl) {} // 仅 make_shared 使用
+    explicit SharedPtr(impl::SharedPtrImpl<T>* impl) : impl_(impl) {} // 仅 make_shared 使用
 
     template <typename D = impl::DefaultDeleter>
-    explicit SharedPtr(T* ptr = nullptr, D deleter = D())
-        : impl_(new impl::SharedPtrImpl<T>(ptr, deleter)) {}
+    explicit SharedPtr(T* ptr = nullptr, D deleter = D()) : impl_(new impl::SharedPtrImpl<T>(ptr, deleter)) {}
     
     template <typename U, typename D = impl::DefaultDeleter> // 允许从 U* 转换
-    explicit SharedPtr(U* ptr = nullptr, D deleter = D())
-        : impl_(new impl::SharedPtrImpl<T>(ptr, deleter)) {}
+    explicit SharedPtr(U* ptr = nullptr, D deleter = D()) : impl_(new impl::SharedPtrImpl<T>(ptr, deleter)) {}
 
     ~SharedPtr() {
         if (impl_->release()) {
@@ -128,7 +127,11 @@ public:
         }
         impl_ = new impl::SharedPtrImpl<T>(ptr, deleter);
     }
-    
+
+    uint use_count() const {
+        return impl_->use_count();
+    }
+
 private:
     impl::SharedPtrImpl<T>* impl_;
 };

@@ -1,6 +1,6 @@
 from typing import List
 
-# 167. 两数之和 II - 输入有序数组 
+# 167. 两数之和 II - 输入有序数组
 # https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted
 def twoSum(self, numbers: List[int], target: int) -> List[int]:
     n = len(numbers)

@@ -25,6 +25,10 @@ void test_str() {
     // 子串
     std::string sub_str = str.substr(/* start */ 0, /* size */ 5);
     std::cout << "Substring: " << sub_str << "\n";
+    // 排序
+    std::sort(str.begin(), str.end());
+    // std::ranges::sort(str); // C++20 范围排序
+    std::cout << "Sorted string: " << str << "\n";
 }
 
 bool compare(int a, int b) {
@@ -213,7 +217,11 @@ struct compare_operator {
 void test_priority_queue() {
     std::cout << "=== Testing priority_queue:\n";
     // 初始化
-    std::priority_queue<int, std::vector<int>, compare_operator> pq; // 大顶堆，与 compare_operator 相反
+    static auto cmp = [] (int a, int b) {
+        return a < b;
+    };
+    std::priority_queue<int, std::vector<int>, decltype(cmp)> pq(cmp); // 大顶堆，与 compare_operator 相反
+    // std::priority_queue<int, std::vector<int>, compare_operator> pq; // 也可以
     // 增
     pq.push(5);
     pq.push(1);

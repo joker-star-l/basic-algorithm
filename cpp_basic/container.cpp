@@ -239,6 +239,10 @@ void test_priority_queue() {
     std::cout << "Empty: " << pq.empty() << "\n";
 }
 
+void test_rand() {
+    int r = std::rand() % 100; // 生成 0-99 的随机数
+    std::cout << "Random number: " << r << "\n";
+}
 
 int main() {
     test_str();
@@ -249,4 +253,5 @@ int main() {
     test_map();
     test_set();
     test_priority_queue();
+    test_rand();
 }

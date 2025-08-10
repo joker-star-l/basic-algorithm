@@ -11,7 +11,7 @@ def strStr(self, haystack: str, needle: str) -> int:
 def kmp(text: str, pattern: str) -> List[int]:
     m = len(pattern)
     pi = [0] * m
-    cnt = 0  # 相同前后缀长度，pattern[cnt] 就是前缀的下一个字符
+    cnt = 0  # 相同前后缀长度，pattern[cnt] 就是前缀的下一个字符（真前后缀，不包含自身！！！）
     for i in range(1, m):
         b = pattern[i]
         while cnt and pattern[cnt] != b:

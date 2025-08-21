@@ -10,6 +10,7 @@ struct Node {
 };
 
 // Preorder Traversal (Root, Left, Right)
+// 144. 二叉树的前序遍历 https://leetcode.cn/problems/binary-tree-preorder-traversal
 void preorder(Node* root, std::vector<int>& result) {
     Node* curr = root;
     std::vector<Node*> stk;
@@ -25,6 +26,7 @@ void preorder(Node* root, std::vector<int>& result) {
 }
 
 // Inorder Traversal (Left, Root, Right)
+// 94. 二叉树的中序遍历 https://leetcode.cn/problems/binary-tree-inorder-traversal
 void inorder(Node* root, std::vector<int>& result) {
     Node* curr = root;
     std::vector<Node*> stk;
@@ -47,6 +49,7 @@ struct NodeState {
 };
 
 // Postorder Traversal (Left, Right, Root)
+// 145. 二叉树的后序遍历 https://leetcode.cn/problems/binary-tree-postorder-traversal
 void postorder(Node* root, std::vector<int>& result) {
     NodeState curr(root, false);
     std::vector<NodeState> stk;

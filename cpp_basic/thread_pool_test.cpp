@@ -4,7 +4,7 @@
 #include <vector>
 #include <chrono>
 
-#include "thread_pool_copy.h"
+#include "thread_pool.h"
 
 int main() {
 

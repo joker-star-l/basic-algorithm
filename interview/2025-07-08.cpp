@@ -1,4 +1,4 @@
-// 2025.07.08 快手（k-star）一面
+// 2025.07.08 快手（快star 推荐）一面
 // 给定 M 个长度为N的降序数组，求最大的 K 个数，复杂度 O(K * M) -> 大顶堆 O(K * logM)
 #include <queue>
 #include <vector>

@@ -14,7 +14,7 @@ public:
         auto expire_time = std::chrono::steady_clock::now() + delay;
         pq.emplace(expire_time, item);
         auto& top = pq.top();
-        if (top.first == expire_time && top.second == item) {
+        if (top.first == expire_time) {
             cv.notify_all();
         }
     }

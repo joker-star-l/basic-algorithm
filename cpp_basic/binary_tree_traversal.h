@@ -1,4 +1,4 @@
-// copied from https://leetcode.cn/problems/binary-tree-inorder-traversal/ and modified
+// copied from https://leetcode.cn/problems/binary-tree-inorder-traversal/solutions/34581/die-dai-fa-by-jason-2/ and modified
 #include <vector>
 
 struct Node {
@@ -51,19 +51,19 @@ struct NodeState {
 // Postorder Traversal (Left, Right, Root)
 // 145. 二叉树的后序遍历 https://leetcode.cn/problems/binary-tree-postorder-traversal
 void postorder(Node* root, std::vector<int>& result) {
-    NodeState curr(root, false);
+    Node* curr = root;
     std::vector<NodeState> stk;
-    while (curr.node || !stk.empty()) {
-        while (curr.node) {
-            stk.push_back(curr);
-            curr = NodeState(curr.node->left, false);
+    while (curr || !stk.empty()) {
+        while (curr) {
+            stk.emplace_back(curr, false);
+            curr = curr->left;
         }
         while (!stk.empty() && stk.back().done) {
             result.push_back(stk.back().node->value);
             stk.pop_back();
         }
         if (!stk.empty()) {
-            curr = NodeState(stk.back().node->right, false);
+            curr = stk.back().node->right;
             stk.back().done = true;
         }
     }
